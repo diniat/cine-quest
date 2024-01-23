@@ -1,9 +1,8 @@
 "use client";
 
-import { getMovies } from "@/lib/actions";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useSearchMovieStore } from "./store";
+import { useSearchMovieStore } from "../app/lib/utils/store";
 import * as z from "zod";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -35,19 +34,13 @@ const MovieSearch: React.FC = () => {
     },
   });
 
-  const [setSearchValue, setApiResponse] = useSearchMovieStore((state) => [
+  const [setSearchValue] = useSearchMovieStore((state) => [
     state.setSearchValue,
-    state.setApiResponse,
   ]);
 
   const onSubmit = async (formData: FormFields) => {
     try {
       setSearchValue(formData.search);
-
-      const result = await getMovies(formData.search);
-      setApiResponse(result);
-      // TODO: delete console.log
-      console.log(result, "RESULT");
     } catch (error) {
       console.log(error, "ERROR");
     }
@@ -57,15 +50,15 @@ const MovieSearch: React.FC = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-row gap-2"
+        className="flex w-full  gap-2"
       >
         <FormField
           control={form.control}
           name="search"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="w-full">
               <FormControl>
-                <Input placeholder="Search..." {...field} />
+                <Input className="" placeholder="Search..." {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
