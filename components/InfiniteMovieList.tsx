@@ -1,52 +1,68 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import MovieCard from "./MovieCard";
 import { useSearchMovieStore } from "../app/lib/utils/store";
 import { Button } from "./ui/button";
 import { useMovies } from "@/app/lib/hooks/useMovies";
 import { Empty } from "./Empty";
 
-interface InfiniteMovieListProps {}
+const InfiniteMovieList = () => {
+  const [searchValue, setSearchValue, Movies] = useSearchMovieStore((state) => [
+    state.searchValue,
+    state.setSearchValue,
+    state.Movies,
+  ]);
 
-const InfiniteMovieList: React.FC<InfiniteMovieListProps> = () => {
-  const [searchValue, apiResponse, setApiResponse] = useSearchMovieStore(
-    (state) => [state.searchValue, state.apiResponse, state.setApiResponse]
-  );
+  useEffect(() => {
+    if (searchValue === "") {
+      const storedSearch = localStorage.getItem("searchValue") || "";
+      if (storedSearch.length > 0) {
+        setSearchValue(storedSearch);
+      }
+    }
+  }, [searchValue, setSearchValue]);
 
   const {
-    movies,
     isLoading,
+    isFetching,
     error,
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,
   } = useMovies(searchValue);
 
-  if (movies.length > 0) {
-    setApiResponse(movies);
-  }
-
-  if (!isLoading && !error && movies.length === 0) {
+  if (!isLoading && !error && hasNextPage === false) {
     return <Empty />;
   }
-  if (!isLoading && !error && hasNextPage === false) {
-    return <p>No hay más resultados</p>;
-  }
   if (error) {
-    return <p>Ha habido un error</p>;
+    return (
+      <div className=" flex items-center justify-center rounded-lg bg-blues-8 p-4 text-gray-2">
+        <p>An error has ocurred. Please try again later.</p>
+      </div>
+    );
   }
 
   return (
-    <div className="grid grid-cols-1 pt-10 md:grid-cols-2 md:gap-4 xl:grid-cols-4">
-      {movies.length > 0 &&
-        movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
+    <div className="flex w-full flex-col items-center justify-center gap-8 bg-gray-9 pb-10">
+      <div className="grid max-w-screen-2xl grid-cols-1 gap-y-6 px-5 pt-5  md:grid-cols-2 md:gap-x-12 lg:px-24 xl:grid-cols-4">
+        {Movies &&
+          Movies.length > 0 &&
+          Movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
 
-      {/* Infinite scrolling button */}
+        {/* Infinite scrolling button */}
+      </div>
       {hasNextPage && !isLoading && !error && (
-        <Button onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
-          {isFetchingNextPage ? "Loading more..." : "Load More"}
-        </Button>
+        <div className="flex w-full items-center justify-center px-36">
+          <Button
+            variant="search"
+            size="lg"
+            onClick={() => !isFetching && fetchNextPage()}
+            disabled={!hasNextPage || isFetchingNextPage}
+          >
+            {isFetchingNextPage ? "Loading more..." : "Load More"}
+          </Button>
+        </div>
       )}
     </div>
   );

@@ -41,6 +41,7 @@ const MovieSearch: React.FC = () => {
   const onSubmit = async (formData: FormFields) => {
     try {
       setSearchValue(formData.search);
+      localStorage.setItem("searchValue", formData.search);
     } catch (error) {
       console.log(error, "ERROR");
     }
@@ -50,22 +51,26 @@ const MovieSearch: React.FC = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex w-full  gap-2"
+        className="flex w-full gap-2"
       >
         <FormField
           control={form.control}
           name="search"
           render={({ field }) => (
-            <FormItem className="w-full">
+            <FormItem className="flex w-full">
               <FormControl>
-                <Input className="" placeholder="Search..." {...field} />
+                <Input
+                  className=""
+                  placeholder="Search Movies, Tv Shows"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" className="p-3">
-          Search...
+        <Button type="submit" className="p-3" variant="search" size="lg">
+          Search
         </Button>
       </form>
     </Form>

@@ -20,8 +20,10 @@ export async function getMovies(search: string, pageParam: Number) {
   const currentPage = Number(response.data.page);
   const allPages = Number(response.data.total_pages);
   const nextCursor = currentPage === allPages ? undefined : currentPage + 1;
+  const prevCursor = currentPage === allPages ? undefined : currentPage - 1;
   return {
     movies: response.data.results,
     nextCursor,
+    prevCursor,
   };
 }

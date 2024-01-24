@@ -1,5 +1,4 @@
-import { create, StateCreator } from "zustand";
-import { persist, createJSONStorage, PersistOptions } from "zustand/middleware";
+import { create } from "zustand";
 
 export interface Movie {
   adult: boolean;
@@ -21,30 +20,15 @@ export interface Movie {
 export interface SearchMovieStore {
   searchValue: string;
   setSearchValue: (value: string) => void;
-  apiResponse: Movie[] | null;
-  setApiResponse: (response: Movie[] | null) => void;
+  Movies: Movie[];
+  setMovies: (Movies: Movie[]) => void;
 }
 
-type MyPersist = (
-  config: StateCreator<SearchMovieStore>,
-  options: PersistOptions<SearchMovieStore>
-) => StateCreator<SearchMovieStore>;
-
-export const useSearchMovieStore = create<SearchMovieStore, []>(
-  (persist as MyPersist)(
-    (set, get): SearchMovieStore => ({
-      searchValue: "",
-      apiResponse: null,
-      setSearchValue: (searchValue) => {
-        set({ searchValue });
-      },
-      setApiResponse: (apiResponse) => {
-        set({ apiResponse });
-      },
-    }),
-    {
-      name: "movies",
-      storage: createJSONStorage(() => localStorage),
-    }
-  )
-);
+export const useSearchMovieStore = create<SearchMovieStore>((set, get) => {
+  return {
+    searchValue: "",
+    setSearchValue: (value) => set({ searchValue: value }),
+    Movies: [],
+    setMovies: (Movies) => set({ Movies }),
+  };
+});

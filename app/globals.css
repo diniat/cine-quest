@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.hero-h {
+  height: calc(100dvh - 5rem);
+}

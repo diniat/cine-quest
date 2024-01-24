@@ -18,6 +18,9 @@ const config = {
       "2xl": "1536px", // => @media (min-width: 1536px) { ... }
       "3xl": "2500px", // => @media (min-width: 2500px) { ... }
     },
+    /* fontFamily: {
+      lato: ["var(--font-lato)", "sans-serif"],
+    }, */
     container: {
       center: true,
       padding: "2rem",
@@ -26,9 +29,13 @@ const config = {
       },
     },
     extend: {
+      backgroundImage: {
+        hero: "url('/images/hero.jpg')",
+      },
       colors: {
         yellow: {
           100: "#F0F3BD",
+          2: "#f0ba16", // new
         },
         gray: {
           1: "#F8F7F7",
@@ -39,10 +46,10 @@ const config = {
           6: "#D9D9D8",
           7: "#B8B8B7",
           8: "#5e5e5e",
-          9: "#eeefeb",
+          9: "#1a2329", // bg
         },
         blues: {
-          1: "#9FAFC6",
+          1: "#4bb2f9", // celeste
           2: "#6C7C93",
           3: "#47566B",
           4: "#3A495F",
@@ -50,8 +57,8 @@ const config = {
           6: "#253246",
           7: "#1E2B3E",
           8: "#182435",
-          9: "#141E2E",
-          10: "#0077FF",
+          9: "#1c2a34", // card
+          10: "#203442", // new
         },
       },
 
