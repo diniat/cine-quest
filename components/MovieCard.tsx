@@ -53,7 +53,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
           <h3 className="max-w-full overflow-hidden truncate text-lg font-bold text-gray-5 lg:text-2xl">
             {movie.title}
           </h3>
-          <div className="bg-transparente flex items-center justify-center rounded-md border border-blues-1 p-1 text-sm font-semibold text-blues-1">
+          <div className="flex items-center justify-center rounded-md border border-blues-1 bg-transparent p-1 text-sm font-semibold text-blues-1">
             <span>{movie.vote_average}</span>
           </div>
         </div>
