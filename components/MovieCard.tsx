@@ -50,7 +50,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
       </div>
       <div className="relative space-y-1 p-4">
         <div className="flex flex-row items-center justify-between">
-          <h3 className="max-w-full overflow-hidden truncate text-lg font-bold text-gray-5 lg:text-2xl">
+          <h3 className="max-w-full overflow-hidden truncate pr-1 text-lg font-bold text-gray-5 lg:text-2xl">
             {movie.title}
           </h3>
           <div className="flex items-center justify-center rounded-md border border-blues-1 bg-transparent p-1 text-sm font-semibold text-blues-1">
