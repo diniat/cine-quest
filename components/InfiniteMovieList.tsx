@@ -44,7 +44,10 @@ const InfiniteMovieList = () => {
   }
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-8 bg-gray-9 pb-10">
+    <div
+      id="movieList"
+      className="flex w-full flex-col items-center justify-center gap-8 bg-gray-9 pb-10"
+    >
       <div className="grid max-w-screen-2xl grid-cols-1 gap-y-6 px-6 pt-5 md:grid-cols-2  md:gap-x-12 md:px-12 lg:px-24 xl:grid-cols-4">
         {Movies &&
           Movies.length > 0 &&

@@ -14,6 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
 
 const schema = z.object({
   search: z
@@ -27,6 +28,8 @@ const schema = z.object({
 type FormFields = z.infer<typeof schema>;
 
 const MovieSearch: React.FC = () => {
+  const router = useRouter();
+
   const form = useForm<FormFields>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -42,6 +45,7 @@ const MovieSearch: React.FC = () => {
     try {
       setSearchValue(formData.search);
       localStorage.setItem("searchValue", formData.search);
+      router.push("#movieList");
     } catch (error) {
       console.log(error, "ERROR");
     }
@@ -57,7 +61,7 @@ const MovieSearch: React.FC = () => {
           control={form.control}
           name="search"
           render={({ field }) => (
-            <FormItem className="flex w-full">
+            <FormItem className="flex w-full flex-col">
               <FormControl>
                 <Input
                   className=""
@@ -65,7 +69,7 @@ const MovieSearch: React.FC = () => {
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="w-full text-center text-yellow-2" />
             </FormItem>
           )}
         />

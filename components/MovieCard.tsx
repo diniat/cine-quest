@@ -25,7 +25,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
 
   return (
     <div className="relative flex w-full flex-col rounded-md bg-blues-9">
-      <div className="relative aspect-square w-full overflow-hidden rounded-t-md">
+      <div className="relative aspect-[2/3] w-full overflow-hidden rounded-t-md">
         {movie.poster_path ? (
           <Image
             src={`${imgUrl}${movie.poster_path}`}
@@ -48,24 +48,24 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
           />
         )}
       </div>
-      <div className="relative space-y-1 p-4">
-        <div className="flex flex-row items-center justify-between">
-          <h3 className="max-w-full overflow-hidden truncate pr-1 text-lg font-bold text-gray-5 lg:text-2xl">
+      <div className="relative space-y-1.5 p-4">
+        <div className="flex flex-row items-start justify-between">
+          <h3 className="max-w-full pr-1 text-lg font-bold text-gray-5 lg:text-xl">
             {movie.title}
           </h3>
           <div className="flex items-center justify-center rounded-md border border-blues-1 bg-transparent p-1 text-sm font-semibold text-blues-1">
             <span>{movie.vote_average}</span>
           </div>
         </div>
-        <h6 className="max-w-full overflow-hidden truncate text-sm font-medium text-gray-7 lg:text-base">
+        <h6 className="max-w-full overflow-hidden truncate text-sm font-medium text-gray-7">
           {movie.release_date}
         </h6>
-        <div className="flex flex-wrap items-center gap-x-1  text-xs font-normal lg:gap-x-2">
+        <div className="flex flex-wrap items-center gap-1 text-xs font-normal lg:gap-x-2 lg:gap-y-1">
           {movie.genre_ids &&
             getGenreNames(movie.genre_ids).map((genreName) => (
               <span
                 key={genreName}
-                className="inline-block rounded-lg bg-blues-10 px-3 py-2.5 text-gray-7 md:px-2"
+                className="inline-block rounded-lg bg-blues-10 px-3 py-1.5 text-gray-7 md:px-2"
               >
                 {genreName}
               </span>

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  scroll-behavior: smooth;
+}
+
 .hero-h {
   height: calc(100dvh - 5rem);
 }
